@@ -1,0 +1,48 @@
+- name: Install UFW
+  ansible.builtin.apt:
+    name: ufw
+    state: present
+
+- name: Set default policies
+  community.general.ufw:
+    direction: incoming
+    policy: deny
+
+- name: Allow SSH
+  community.general.ufw:
+    rule: allow
+    name: SSH
+
+- name: Allow Pi-hole DNS + HTTP/HTTPS
+  community.general.ufw:
+    rule: allow
+    port: "{{ item }}"
+  loop:
+    - "53"      # DNS
+    - "80"      # HTTP
+    - "443"     # HTTPS
+
+- name: Enable UFW
+  community.general.ufw:
+    state: enabled
+
+- name: Install fail2ban
+  ansible.builtin.apt:
+    name: fail2ban
+    state: present
+
+- name: Set fail2ban config
+  ansible.builtin.lineinfile:
+    path: /etc/fail2ban/paths-debian.conf
+    line: 'sshd_backend=systemd'
+    state: present
+
+- name: Ensure fail2ban is enabled
+  ansible.builtin.service:
+    name: fail2ban
+    state: started
+    enabled: true
+  register: fail2ban
+  until: fail2ban.status.ActiveState == "active" # Fail2ban can fail to start sometimes
+  retries: 5
+  delay: 5

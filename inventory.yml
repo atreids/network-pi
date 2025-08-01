@@ -1,0 +1,10 @@
+debianvm:
+  hosts:
+    debian_host:
+      ansible_host: localhost
+      ansible_user: username
+      ansible_ssh_private_key_file: /path/to/key
+
+dev:
+  children:
+    debianvm:

@@ -1,0 +1,28 @@
+- name: check if already installed
+  ansible.builtin.command: which log2ram
+  failed_when: false
+  changed_when: false
+  check_mode: false
+  register: log2ram_command_result
+
+- name: install
+  ansible.builtin.shell: |
+    curl -L https://github.com/azlux/log2ram/archive/master.tar.gz | tar zxf -
+    cd log2ram-master
+    chmod +x install.sh && sudo ./install.sh
+    cd ..
+    rm -r log2ram-master
+  args:
+    creates: /etc/log2ram.conf
+  when: log2ram_command_result.rc == 1
+
+- name: reboot post install
+  ansible.builtin.reboot:
+    msg: "Rebooting machine to finalise log2ram installation"
+  when: log2ram_command_result.rc == 1
+
+- name: Ensure it is started
+  ansible.builtin.service:
+    name: log2ram
+    state: started
+    enabled: true
