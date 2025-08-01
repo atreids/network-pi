@@ -1,7 +1,7 @@
 - name: Provision Debian Pi-hole server
   hosts: dev
   become: true
-  var_files:
+  vars_files:
     - group_vars/vault.yml
   roles:
     - role: common
