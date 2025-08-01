@@ -8,3 +8,4 @@
     - role: firewall
     - role: log2ram
     - role: docker
+    - role: pihole

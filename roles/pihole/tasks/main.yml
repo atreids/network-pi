@@ -11,6 +11,6 @@
     mode: 0644
 
 - name: Start Pi-hole container
-  community.docker.docker_compose:
+  community.docker.docker_compose_v2:
     project_src: /opt/pihole
     state: present
