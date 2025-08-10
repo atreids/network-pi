@@ -1,8 +1,7 @@
-- name: Basic server setup
+- name: Basic homelab server setup
   hosts: homelab
   become: true
   vars_files:
-    - group_vars/vault.yml
   roles:
     - role: common
     - role: firewall
@@ -14,22 +13,16 @@
   hosts: pi3
   become: true
   vars_files:
+    - group_vars/all.yml
     - group_vars/vault.yml
   roles:
-    - role: common
-    - role: firewall
-    - role: log2ram
-    - role: docker
     - role: pihole
 
 - name: Provision backup Pi-hole server
   hosts: pi02w
   become: true
   vars_files:
+    - group_vars/all.yml
     - group_vars/vault.yml
   roles:
-    - role: common
-    - role: firewall
-    - role: log2ram
-    - role: docker
     - role: pihole

@@ -2,9 +2,9 @@
 
 Ansible playbook + roles for homelab setup. These playbooks are intended to be run against a fresh install of Raspbian (64bit) Lite OS on a Raspberry Pi. The machine running ansible needs to be able to SSH to the raspberries.
 
-## Manual steps required:
+## Manual steps required
 
-- You must manually install the OS.
+- You must manually install the OS. I picked Raspbian for this as the installation process on Raspberry Pis, including SSH, is super simple.
 - SSH connection needs to be setup.
 - Copy a ssh public key across using `make sshkey-init`.
 - The users on the raspberries should have a complex password set.
