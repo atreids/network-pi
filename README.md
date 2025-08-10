@@ -17,5 +17,6 @@ Ansible playbook + roles for homelab setup. These playbooks are intended to be r
 - Installs some common defaults. `git, vim, htop, curl, wget`.
 - Docker.
 - UFW firewall.
+- Fail2Ban
 - log2ram to preserve SD health.
 - Pi-hole. A DNS based adblocker.
