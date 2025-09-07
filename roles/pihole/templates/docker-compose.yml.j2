@@ -8,8 +8,11 @@ services:
       TZ: "{{ pihole_timezone }}"
       FTLCONF_webserver_api_password: "{{ pihole_webpassword }}"
       FTLCONF_dns_upstreams: "{{ pihole_dns1 }};{{ pihole_dns2 }}"
+      FTLCONF_dns_listeningMode: "SINGLE"
+      FTLCONF_dns_interface: "eth0"
     volumes:
       - ./etc-pihole/:/etc/pihole/
-      - ./etc-dnsmasq.d/:/etc/dnsmasq.d/
     cap_add:
       - NET_ADMIN
+      - SYS_TIME
+      - SYS_NICE
